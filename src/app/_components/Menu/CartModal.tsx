@@ -77,7 +77,7 @@ const CartModal: React.FC<CartModalProps> = ({
           ✕
         </button>
 
-        <h2 className="text-2xl font-bold mb-4">Added to Cart!</h2>
+        <h2 className="text-2xl font-bold mb-4 cursor-pointer">Added to Cart!</h2>
         <p className="text-gray-700 mb-2">
           <span className="font-semibold">{itemName}</span> - ₹{price}
         </p>
