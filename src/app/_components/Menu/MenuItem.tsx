@@ -2,15 +2,17 @@
 "use client";
 import React from "react";
 
+export interface MenuItemData {
+  name: string;
+  price: number;
+  img: string;
+  desc: string;
+  rating: number;
+}
+
 interface MenuItemProps {
-  item: {
-    name: string;
-    price: number;
-    img: string;
-    desc: string;
-    rating: number;
-  };
-  onAddToCart: (item: any) => void;
+  item: MenuItemData;
+  onAddToCart: (item: MenuItemData) => void;
 }
 
 const MenuItem: React.FC<MenuItemProps> = ({ item, onAddToCart }) => {

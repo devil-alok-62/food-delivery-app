@@ -2,16 +2,38 @@
 "use client";
 import React, { useState } from "react";
 import { menuItems } from "@/data/menuData";
-import MenuItem from "./MenuItem";
+import MenuItem, { type MenuItemData } from "./MenuItem";
 import CartModal from "./CartModal";
+
+type CartItem = MenuItemData & { quantity: number };
 
 const Menu = () => {
   const [modalOpen, setModalOpen] = useState(false);
-  const [selectedItem, setSelectedItem] = useState<any>(null);
+  const [cartItems, setCartItems] = useState<CartItem[]>([]);
 
-  const handleAddToCart = (item: any) => {
-    setSelectedItem(item);
+  const handleAddToCart = (item: MenuItemData) => {
+    setCartItems((currentItems) => {
+      const existingItem = currentItems.find((cartItem) => cartItem.name === item.name);
+
+      if (existingItem) {
+        return currentItems.map((cartItem) =>
+          cartItem.name === item.name
+            ? { ...cartItem, quantity: cartItem.quantity + 1 }
+            : cartItem
+        );
+      }
+
+      return [...currentItems, { ...item, quantity: 1 }];
+    });
     setModalOpen(true);
+  };
+
+  const handleQuantityChange = (itemName: string, quantity: number) => {
+    setCartItems((currentItems) =>
+      currentItems
+        .map((item) => item.name === itemName ? { ...item, quantity } : item)
+        .filter((item) => item.quantity > 0)
+    );
   };
 
   return (
@@ -42,8 +64,12 @@ const Menu = () => {
       <CartModal
         isOpen={modalOpen}
         onClose={() => setModalOpen(false)}
-        itemName={selectedItem?.name}
-        price={selectedItem?.price}
+        items={cartItems}
+        onQuantityChange={handleQuantityChange}
+        onPaymentSuccess={() => {
+          setCartItems([]);
+          setModalOpen(false);
+        }}
       />
     </section>
   );

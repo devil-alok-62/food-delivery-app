@@ -2,10 +2,7 @@
 import { motion } from "framer-motion";
 import { ArrowRight } from "lucide-react";
 import Image from "next/image";
-import { useRouter } from "next/navigation";
 const Home = () => {
-  const router = useRouter();
-
   return (
     <div>
       {" "}
@@ -34,20 +31,21 @@ const Home = () => {
             </p>
 
             <div className="mt-10 flex gap-4">
-              <button
-                onClick={() => router.push("/ResturantLogin")}
+              <a
+                href="#menu"
                 className="px-8 py-4 rounded-xl bg-yellow-400 text-black font-semibold
                          hover:scale-105 transition flex items-center gap-2"
               >
                 Order Now <ArrowRight size={18} />
-              </button>
+              </a>
 
-              <button
+              <a
+                href="#menu"
                 className="px-8 py-4 rounded-xl border border-white/20
                          hover:bg-white/10 transition"
               >
                 Explore Menu
-              </button>
+              </a>
             </div>
           </motion.div>
 
