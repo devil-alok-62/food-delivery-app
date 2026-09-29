@@ -38,7 +38,7 @@ const Footer = () => {
               <Link className="hover:text-white cursor-pointer" href="/">
                 Home
               </Link>
-              <Link className="hover:text-white cursor-pointer" href="/#menu">
+              <Link className="hover:text-white cursor-pointer" href="/menu">
                 Menu
               </Link>
               <Link

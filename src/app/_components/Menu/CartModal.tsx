@@ -39,13 +39,14 @@ const CartModal: React.FC<CartModalProps> = ({
         }),
       });
 
-      const order = await res.json();
+      const result = await res.json();
       if (!res.ok) {
-        throw new Error(order.error ?? "Unable to create payment order.");
+        throw new Error(result.error ?? "Unable to create payment order.");
       }
+      const { order, keyId } = result;
 
       const options = {
-        key: process.env.NEXT_PUBLIC_RAZORPAY_KEY_ID,
+        key: keyId,
         amount: order.amount,
         currency: order.currency,
         name: "Food Delivery",

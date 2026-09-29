@@ -1,9 +1,11 @@
 "use client";
 
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import React, { useEffect, useState } from "react";
 
 const Navbar = () => {
+  const pathname = usePathname();
   const [scrolled, setScrolled] = useState(false);
   const [progress, setProgress] = useState(0);
   const sections = ["home", "menu", "contact"];
@@ -61,10 +63,9 @@ const Navbar = () => {
       {/* ================= NAVBAR ================= */}
       <nav
         className={`fixed top-0 left-0 w-full z-50 transition-all duration-300
-          ${
-            scrolled
-              ? "backdrop-blur-xl bg-zinc-900/40 border-b border-white/10"
-              : "bg-transparent"
+          ${scrolled
+            ? "backdrop-blur-xl bg-zinc-900/40 border-b border-white/10"
+            : "bg-transparent"
           }
         `}
       >
@@ -85,10 +86,15 @@ const Navbar = () => {
               return (
                 <a
                   key={link.id}
-                  href={`#${link.id}`}
+                  href={
+                    pathname === "/"
+                      ? `#${link.id}`
+                      : link.id === "menu"
+                        ? "/menu"
+                        : `/#${link.id}`
+                  }
                   className={`relative text-sm font-semibold transition-all
-                    ${
-                      isActive ? "text-white" : "text-gray-400 hover:text-white"
+                    ${isActive ? "text-white" : "text-gray-400 hover:text-white"
                     }
                   `}
                 >
